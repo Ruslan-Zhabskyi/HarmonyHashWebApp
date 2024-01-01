@@ -20,22 +20,52 @@ const database = firebase.database();
 // Create camera database reference
 const camRef = database.ref("file");
 
-// Sync on any updates to the DB. THIS CODE RUNS EVERY TIME AN UPDATE OCCURS ON THE DB.
-camRef.limitToLast(1).on("value", function(snapshot) {
-  snapshot.forEach(function(childSnapshot) {
-    const image = childSnapshot.val()["image"];
-    const time = childSnapshot.val()["timestamp"];
-    const storageRef = storage.ref(image);
+// Load the MobileNet model
+let model;
 
-    storageRef
-      .getDownloadURL()
-      .then(function(url) {
-        console.log(url);
+// Log TensorFlow.js and MobileNet model loading
+console.log("TensorFlow.js and MobileNet model loading...");
+
+mobilenet.load().then((loadedModel) => {
+  model = loadedModel;
+  console.log("TensorFlow.js and MobileNet model loaded successfully.");
+
+  // Sync on any updates to the DB. THIS CODE RUNS EVERY TIME AN UPDATE OCCURS ON THE DB.
+  camRef.limitToLast(1).on("value", function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      const image = childSnapshot.val()["image"];
+      const time = childSnapshot.val()["timestamp"];
+
+      console.log("Timestamp from Firebase:", time);
+
+      const storageRef = storage.ref(image);
+
+      storageRef.getDownloadURL().then(function(url) {
+        console.log("Image URL:", url);
+
+        // Display the image
         document.getElementById("photo").src = url;
-        document.getElementById("time").innerText = time;
-      })
-      .catch(function(error) {
+
+        // Perform image classification with TensorFlow.js
+        const imgElement = document.getElementById("photo");
+        model.classify(imgElement).then((predictions) => {
+          console.log("Predictions:", predictions);
+
+          // Check if there are predictions and display the result
+          if (predictions.length > 0) {
+            const topPrediction = predictions[0];
+            const result = `Prediction: ${topPrediction.className}, Probability: ${topPrediction.probability.toFixed(4)}`;
+            console.log("Result:", result);
+
+            // Update your HTML to display the result as needed
+            document.getElementById("time").innerText = `${time} - ${result}`;
+          }
+        });
+      }).catch(function(error) {
         console.log(error);
       });
+    });
   });
+}).catch(function(error) {
+  console.log("Error loading TensorFlow.js and MobileNet model:", error);
 });
