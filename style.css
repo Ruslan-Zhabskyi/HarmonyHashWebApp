@@ -197,7 +197,7 @@ h2 {
 /* Very light scaling for our illustration */
 .image {
   width: 450px; /* Set the desired width */
-  height: auto; /* Maintain aspect ratio */
+  height: 350px; /* Maintain aspect ratio */
   margin-top: var(10px);
 }
 
