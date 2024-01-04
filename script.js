@@ -1,4 +1,4 @@
-// Firebase configuration
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBqq5uFvuul59UZKh_7_WDHM0i3e5w6EZg",
   authDomain: "harmonyhushmonitor.firebaseapp.com",

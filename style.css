@@ -1,20 +1,4 @@
-/******************************************************************************
-START Glitch hello-app default styles
 
-The styles in this section do some minimal CSS resets, set default fonts and 
-colors, and handle the layout for our footer and "Remix on Glitch" button. If
-you're new to CSS they may seem a little complicated, but you can scroll down
-to this section's matching END comment to see page-specific styles.
-******************************************************************************/
-
-
-/* 
-  The style rules specify elements by type and by attributes such as class and ID
-  Each section indicates an element or elements, then lists the style properties to apply
-  See if you can cross-reference the rules in this file with the elements in index.html
-*/
-
-/* Our default values set as CSS variables */
 :root {
   --color-bg: #FFFFFF;
   --color-text-main: #000000;
@@ -109,11 +93,54 @@ a:not(.btn--remix):visited {
 /******************************************************************************
 END Glitch hello-app default styles
 ******************************************************************************/
-
 body {
-  font-family: HK Grotesk;
-  background-color: var(--color-bg);
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
+
+h1 {
+  color: #333;
+      margin-top: 5px;
+  }
+
+  .image-container {
+      margin: 20px;
+  }
+
+  #photo {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  #time {
+      font-style: italic;
+  }
+
+  .iframe-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin: 20px;
+  }
+
+  iframe {
+      width: 100%;
+      max-width: 450px;
+      height: 260px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+  }
+
+img {
+            width: 100px;
+            display: block; 
+            margin: 0 auto; 
+        }
 
 /* Page structure */
 .wrapper {
