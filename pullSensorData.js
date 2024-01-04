@@ -15,7 +15,7 @@ firebase.initializeApp(firebaseConfig);
 // Get a reference to the database service
 const database = firebase.database();
 
-// Create a reference to the "data" path in your database
+// Create a reference to the "data" path
 const dataRef = database.ref("data");
 
 // Specify the Glitch app file location
@@ -27,8 +27,7 @@ dataRef.once("value")
     // Convert the snapshot to JSON
     const data = snapshot.val();
 
-    // Store the data in your Glitch app at the specified location
-    // This assumes you have a function to write to a file in your Glitch app
+    // Store the data in Glitch app at the specified location
     writeDataToFileInGlitch(data, glitchAppFileLocation);
   })
   .catch(error => {
